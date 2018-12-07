@@ -10,9 +10,16 @@ import (
 
 func TestGithubFetcher(t *testing.T) {
 	f := NewGithubFetcher(utils.NewHTTPJsonFetcher(10 * time.Second))
-	raw, err := f.FetchProjects("rosenpin")
+	projects, err := f.FetchProjects("rosenpin")
 	if err != nil {
 		t.Error(err)
 	}
-	fmt.Printf("%T", raw)
+
+	for _, project := range projects {
+		if project == nil {
+			continue
+		}
+
+		fmt.Print(*project)
+	}
 }

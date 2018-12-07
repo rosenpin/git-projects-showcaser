@@ -4,6 +4,11 @@ import (
 	"fmt"
 
 	"gitlab.com/rosenpin/git-project-showcaser/models"
+	"gitlab.com/rosenpin/git-project-showcaser/parsers"
+)
+
+const (
+	githubTag = "github"
 )
 
 var (
@@ -26,15 +31,12 @@ func (github *githubParser) Parse(raw interface{}) ([]*models.Project, error) {
 
 	for _, rawProject := range rawProjects {
 		mappedProject := rawProject.(map[string]interface{})
-		isFork, _ := mappedProject["fork"].(bool)
-		stars, _ := mappedProject["stargazers_count"].(float64)
-		forks, _ := mappedProject["forks"].(float64)
-		name, _ := mappedProject["name"].(string)
-		description, _ := mappedProject["description"].(string)
-		url, _ := mappedProject["html_url"].(string)
-		lang, _ := mappedProject["language"].(string)
 
-		project := models.NewProject(isFork, stars, forks, name, description, url, lang)
+		project, err := parsers.CreateProjectUsingTags(mappedProject, githubTag)
+		if err != nil {
+			return nil, err
+		}
+
 		projects = append(projects, project)
 	}
 
