@@ -1,28 +1,30 @@
 package manager
 
 import (
-	"gitlab.com/rosenpin/git-project-showcaser/api/models"
 	"gitlab.com/rosenpin/git-project-showcaser/api/services"
+	"gitlab.com/rosenpin/git-project-showcaser/models"
 )
 
 type Filters struct {
-	sortMode    *models.SortMode
-	maxProjects uint
+	sortMode    models.SortMode
+	maxProjects int
 	withForks   bool
 }
 
 type Manager struct {
 	service  services.Service
-	filters  *Filters
+	filters  Filters
 	username string
 }
 
 func New() *Manager {
-	return &Manager{}
+	return &Manager{filters: Filters{}}
 }
 
 func (manager *Manager) clear() {
-	manager.filters = nil
+	manager.filters.sortMode = models.Stars
+	manager.filters.maxProjects = 10
+	manager.filters.withForks = false
 	manager.username = ""
 }
 
@@ -31,23 +33,18 @@ func (manager *Manager) From(service services.Service) *Manager {
 	return manager
 }
 
-func (manager *Manager) UsingSortMode(sortmode *models.SortMode) *Manager {
+func (manager *Manager) UsingSortMode(sortmode models.SortMode) *Manager {
 	manager.filters.sortMode = sortmode
 	return manager
 }
 
-func (manager *Manager) WithNoMoreThan(maxProjects uint) *Manager {
+func (manager *Manager) WithNoMoreThan(maxProjects int) *Manager {
 	manager.filters.maxProjects = maxProjects
 	return manager
 }
 
-func (manager *Manager) WithForks() *Manager {
+func (manager *Manager) IncludingForks() *Manager {
 	manager.filters.withForks = true
-	return manager
-}
-
-func (manager *Manager) WithoutForks() *Manager {
-	manager.filters.withForks = false
 	return manager
 }
 

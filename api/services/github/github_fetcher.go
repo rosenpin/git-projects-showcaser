@@ -1,11 +1,11 @@
-package services
+package github
 
 import (
 	"fmt"
 
-	"gitlab.com/rosenpin/git-project-showcaser/api/models"
 	"gitlab.com/rosenpin/git-project-showcaser/api/parsers"
 	"gitlab.com/rosenpin/git-project-showcaser/api/utils"
+	"gitlab.com/rosenpin/git-project-showcaser/models"
 )
 
 const (
@@ -25,7 +25,9 @@ func NewGithubFetcher(fetcher *utils.HTTPJsonFetcher) *GithubFetcher {
 
 // FetchProjects is used to fetch projects of a user by his username
 func (github *GithubFetcher) FetchProjects(username string) ([]*models.Project, error) {
-	result, err := github.FetchJSON(fmt.Sprintf(githubAPIUrl, username, "a140351ddd6ff50a93562c9a50321ea4cae46185"))
+	apiURL := fmt.Sprintf(githubAPIUrl, username, "e2e933cd8f9945e19c9ad2c8c6f02782ae70f8e3")
+	fmt.Println("querying: ", apiURL)
+	result, err := github.FetchJSON(apiURL)
 	if err != nil {
 		return nil, err
 	}

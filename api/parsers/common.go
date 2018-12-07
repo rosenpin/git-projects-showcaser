@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"gitlab.com/rosenpin/git-project-showcaser/api/models"
+	"gitlab.com/rosenpin/git-project-showcaser/models"
 )
 
 // CreateProjectUsingTags uses the project tags to dynamically create a project object using reflections

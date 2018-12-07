@@ -1,10 +1,10 @@
-package services
+package github
 
 import (
 	"fmt"
 
-	"gitlab.com/rosenpin/git-project-showcaser/api/models"
 	"gitlab.com/rosenpin/git-project-showcaser/api/parsers"
+	"gitlab.com/rosenpin/git-project-showcaser/models"
 )
 
 const (
