@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.com/rosenpin/git-project-showcaser/utils"
+	"gitlab.com/rosenpin/git-project-showcaser/api/utils"
 )
 
 func TestGithubFetcher(t *testing.T) {

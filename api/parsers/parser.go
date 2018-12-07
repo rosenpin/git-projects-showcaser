@@ -1,7 +1,7 @@
 package parsers
 
 import (
-	"gitlab.com/rosenpin/git-project-showcaser/models"
+	"gitlab.com/rosenpin/git-project-showcaser/api/models"
 )
 
 // ProjectsParser is the interface used to parse projects data from raw json data

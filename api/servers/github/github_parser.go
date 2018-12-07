@@ -3,8 +3,8 @@ package servers
 import (
 	"fmt"
 
-	"gitlab.com/rosenpin/git-project-showcaser/models"
-	"gitlab.com/rosenpin/git-project-showcaser/parsers"
+	"gitlab.com/rosenpin/git-project-showcaser/api/models"
+	"gitlab.com/rosenpin/git-project-showcaser/api/parsers"
 )
 
 const (
