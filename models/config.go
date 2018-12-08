@@ -10,4 +10,5 @@ type Config struct {
 	MaxProjects        uint    `json:"MaxProjects"`
 	IncludeForks       bool    `json:"IncludeForks"`
 	GitPlatform        string  `json:"GitPlatform"`
+	SortMode           string  `json:"SortMode"`
 }

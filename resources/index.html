@@ -4,32 +4,7 @@
 		<meta charset="UTF-8">
 		<title>{{.Title}}</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-	</head>
-	<body>
-        <div class="header_wrapper">
-        <h1 class="header">
-            {{ .Title }}'s projects
-        </h1>
-        </div>
-        <div class="projects">
-		{{range .Projects}}
-        <a href="{{ .Link }}">
-            <div class="project" >
-                <h2 class="name">{{ .Name }}</h2>
-                <p class="description">{{ .Description }}</p>
-                <div class="icons_wrapper">
-                    <p>{{ .Forks }}</p>
-                    <img class="icon" src="/static/fork.png">
-                    <div style="width: 6px"></div>
-                    <p>{{ .Stars }}</p>
-                    <img class="icon" src="/static/star.png">
-                </div>
-            </div>
-        </a>
-        {{end}}
-        </div>
-
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <style>
             body {
                 margin: 0;
@@ -44,9 +19,10 @@
              }
 
             .project {
+                display:none;
                 position: relative;
                 outline: 5px solid #34515e;
-                height: 188px;
+                height: 14em;
                 box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 8px 30px 12px rgba(0, 0, 0, 0.30);
             }
 
@@ -62,6 +38,7 @@
 
             .description {
                 vertical-align:text-top;
+                    font-size: large;
                 padding-right: 32px;
                 padding-left: 8px;
                 margin-block-start:0;
@@ -94,8 +71,8 @@
             }
 
             .icons_wrapper {
-                right:0;
-                bottom:0;
+                right:0.2em;
+                bottom:0.2em;
                 position:absolute;
                 display: -webkit-flex; 
                 -webkit-align-items: center; 
@@ -107,5 +84,37 @@
                 margin-block-end:0;
             }
         </style>
+	</head>
+	<body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <div class="header_wrapper">
+        <h1 class="header">
+            {{ .Title }}'s projects
+        </h1>
+        </div>
+        <div class="projects">
+		{{range .Projects}}
+        <a href="{{ .Link }}">
+            <div class="project" >
+                <h2 class="name">{{ .Name }}</h2>
+                <p class="description">{{ .Description }}</p>
+                <div class="icons_wrapper">
+                    <p>{{ .Forks }}</p>
+                    <img alt="fork" class="icon" src="/static/fork.png">
+                    <div style="width: 6px"></div>
+                    <p>{{ .Stars }}</p>
+                    <img alt="star" class="icon" src="/static/star.png">
+                </div>
+            </div>
+        </a>
+        {{end}}
+        </div>
+
+
+    <script>
+        $(".project").each(function (index){
+            $(this).fadeIn(800+index*150);
+        })
+    </script>
 	</body>
 </html>

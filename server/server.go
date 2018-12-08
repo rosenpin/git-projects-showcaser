@@ -70,5 +70,7 @@ func (server *Server) Start(config *models.Config, err error) {
 
 		io.Copy(w, file)
 	})
-	http.ListenAndServe(fmt.Sprintf(":%d", uint(config.Port)), nil)
+	if err := http.ListenAndServe(fmt.Sprintf(":%d", uint(config.Port)), nil); err != nil {
+		panic(err)
+	}
 }

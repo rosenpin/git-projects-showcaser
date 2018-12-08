@@ -3,6 +3,7 @@ package manager
 import (
 	filtering "gitlab.com/rosenpin/git-project-showcaser/api/filters"
 	"gitlab.com/rosenpin/git-project-showcaser/api/services"
+	"gitlab.com/rosenpin/git-project-showcaser/api/sorters"
 	"gitlab.com/rosenpin/git-project-showcaser/models"
 )
 
@@ -31,5 +32,7 @@ func (manager *Manager) Fetch(config *models.Config) (models.Projects, error) {
 	}
 	filters.Add(filtering.Create(models.MaxFilter, config))
 
-	return filters.Filter(projects), nil
+	sorter := sorters.Create(models.SortFromConfig[config.SortMode])
+
+	return filters.Filter(sorter.Sort(projects)), nil
 }

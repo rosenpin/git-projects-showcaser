@@ -18,12 +18,6 @@ var (
 	platforms = map[string]services.ServiceCreator{
 		"github": github.NewGithub,
 	}
-
-	sortModes = map[string]models.SortMode{
-		"stars":          models.Stars,
-		"forks":          models.Forks,
-		"alphabetically": models.Alphabetically,
-	}
 )
 
 const (
