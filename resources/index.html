@@ -20,6 +20,7 @@
              }
 
             .project {
+                display: none;
                 position: relative;
                 height: 20vh;
                 border-radius: 8px 8px 8px 8px;
@@ -132,6 +133,9 @@
                 </h1>
             </div>
         </a>
+        <noscript>
+            <h1 style="text-align: center">Javascript is required</h1>
+        </noscript>
         <div class="projects">
 		{{range .Projects}}
         <a href="{{ .Link }}">
@@ -157,7 +161,6 @@
 
     <script>
         $(".project").each(function (index){
-            $(this).hide();
             $(this).fadeIn(800+index*150);
         })
     </script>
