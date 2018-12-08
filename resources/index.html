@@ -83,15 +83,33 @@
                 margin-block-start:0;
                 margin-block-end:0;
             }
+
+            footer {
+                position: absolute;
+                bottom: 0;
+                left: 1em;
+                    right: 1em;
+            }
+
+            footer p{
+                text-align:center;
+            }
+
+            .classic_a {
+                text-decoration: underline; 
+                color: blue;
+            }
         </style>
 	</head>
 	<body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <div class="header_wrapper">
-        <h1 class="header">
-            {{ .Title }}'s projects
-        </h1>
-        </div>
+        <a href="{{ .ProfileURL }}">
+            <div class="header_wrapper">
+                <h1 class="header">
+                    {{ .Title }}'s {{ .ServiceName }} projects
+                </h1>
+            </div>
+        </a>
         <div class="projects">
 		{{range .Projects}}
         <a href="{{ .Link }}">
@@ -110,6 +128,9 @@
         {{end}}
         </div>
 
+        <footer>
+            <p><a class="classic_a" href="https://gitlab.com/rosenpin/git-project-showcaser">git project showcaser</a> created by <a href="https://gitlab.com/rosenpin" class="classic_a">@rosenpin</a></p>
+        </footer>
 
     <script>
         $(".project").each(function (index){

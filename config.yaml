@@ -1,0 +1,10 @@
+ResourcesPath: resources
+Port: 8080
+Username: rosenpin
+AuthCode: d678aaffd010230d10f7ef270bd6294ed2228107
+HTTPRequestTimeout: 10s
+MaxProjects: 9
+IncludeForks: false
+SortMode: stars
+GitPlatform: github
+ProfileURL: http://www.github.com/rosenpin

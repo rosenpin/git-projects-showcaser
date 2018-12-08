@@ -41,16 +41,18 @@ func (server *Server) Start(config *models.Config, err error) {
 			return
 		}
 
-		template, err := template.New("mypage").Parse(string(file))
+		template, err := template.New("Web Page").Parse(string(file))
 		if err != nil {
 			fmt.Fprintf(w, fmt.Sprint("Error: ", err))
 			return
 		}
 
 		page := struct {
-			Title    string
-			Projects models.Projects
-		}{config.Username, server.projects}
+			Title       string
+			Projects    models.Projects
+			ServiceName string
+			ProfileURL  string
+		}{config.Username, server.projects, config.GitPlatform, config.ProfileURL}
 
 		err = template.Execute(w, page)
 		if err != nil {

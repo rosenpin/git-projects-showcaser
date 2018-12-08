@@ -1,8 +1,6 @@
 package github
 
 import (
-	"time"
-
 	"gitlab.com/rosenpin/git-project-showcaser/api/services"
 	"gitlab.com/rosenpin/git-project-showcaser/api/utils"
 	"gitlab.com/rosenpin/git-project-showcaser/models"
@@ -15,7 +13,7 @@ type Github struct {
 
 // NewGithub creates a new Github object and uses the timeout as the request timeout for API requests
 func NewGithub(config *models.Config) services.Service {
-	return &Github{NewFetcher(config, utils.NewHTTPJsonFetcher(time.Duration(config.HTTPRequestTimeout)*time.Second))}
+	return &Github{NewFetcher(config, utils.NewHTTPJsonFetcher(config.HTTPRequestTimeout))}
 }
 
 // GetProjects gets the projects from Github and returns it

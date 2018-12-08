@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"time"
 
 	"gitlab.com/rosenpin/git-project-showcaser/api/manager"
 	"gitlab.com/rosenpin/git-project-showcaser/api/services"
@@ -12,16 +11,13 @@ import (
 	"gitlab.com/rosenpin/git-project-showcaser/config"
 	"gitlab.com/rosenpin/git-project-showcaser/models"
 	"gitlab.com/rosenpin/git-project-showcaser/server"
+	yaml "gopkg.in/yaml.v2"
 )
 
 var (
 	platforms = map[string]services.ServiceCreator{
 		"github": github.NewGithub,
 	}
-)
-
-const (
-	defaultTimeout = 10 * time.Second
 )
 
 func main() {
@@ -55,7 +51,7 @@ func loadConfig(configPath string) *models.Config {
 
 	config := &models.Config{}
 
-	err := configLoader.Load(config)
+	err := configLoader.Load(yaml.Unmarshal, config)
 	if err != nil {
 		panic(err)
 	}
