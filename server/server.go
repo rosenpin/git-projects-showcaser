@@ -10,8 +10,18 @@ import (
 	"gitlab.com/rosenpin/git-project-showcaser/models"
 )
 
-// StartServer starts the HTTP server on the specified port
-func StartServer(config *models.Config, projects []*models.Project, err error) {
+// Server is the object responsible of the HTTP server
+type Server struct {
+	projects []*models.Project
+}
+
+// SetProjects sets the projects that the server will return, this is used to update the server without having to restart it
+func (server *Server) SetProjects(projects []*models.Project) {
+	server.projects = projects
+}
+
+// Start starts the HTTP server on the specified port
+func (server *Server) Start(config *models.Config, err error) {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Fprintf(w, fmt.Sprint("Error: ", err))
@@ -33,7 +43,7 @@ func StartServer(config *models.Config, projects []*models.Project, err error) {
 		page := struct {
 			Title    string
 			Projects []*models.Project
-		}{config.Username, projects}
+		}{config.Username, server.projects}
 
 		err = template.Execute(w, page)
 		if err != nil {
