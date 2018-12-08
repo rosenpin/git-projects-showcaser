@@ -17,3 +17,8 @@ SortMode: stars
 GitPlatform: github
 ProfileURL: http://www.github.com/rosenpin 
 ```
+
+## Running it
+
+To run the program:
+``` ./showcase-projects -c $CONFIG_PATH```
