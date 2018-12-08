@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	githubAPIUrl = "https://api.github.com/users/%v/repos?access_token=%v"
+	githubAPIUrl = "https://api.github.com/users/%v/repos?sort=updated?access_token=%v"
 )
 
 // Fetcher fetches projects from Github

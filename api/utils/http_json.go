@@ -3,7 +3,6 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"time"
 )
@@ -27,8 +26,7 @@ func (fetcher *HTTPJsonFetcher) FetchJSON(url string) (result interface{}, err e
 	defer answer.Body.Close()
 
 	if answer.StatusCode != 200 {
-		content, _ := ioutil.ReadAll(answer.Body)
-		return nil, fmt.Errorf("Received %v from http request: %v", answer.Status, string(content))
+		return nil, fmt.Errorf("Received %v from http request", answer.Status)
 	}
 
 	var output interface{}
