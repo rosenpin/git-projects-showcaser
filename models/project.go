@@ -28,5 +28,6 @@ func NewProject(
 		Name:        name,
 		Description: description,
 		Link:        link,
-		Language:    language}
+		Language:    language,
+	}
 }
