@@ -9,10 +9,11 @@ import (
 
 type Manager struct {
 	service services.Service
+	config  *models.Config
 }
 
 func New(config *models.Config) *Manager {
-	return &Manager{}
+	return &Manager{config: config}
 }
 
 func (manager *Manager) From(service services.Service) *Manager {
@@ -20,19 +21,19 @@ func (manager *Manager) From(service services.Service) *Manager {
 	return manager
 }
 
-func (manager *Manager) Fetch(config *models.Config) (models.Projects, error) {
+func (manager *Manager) Fetch() (models.Projects, error) {
 	projects, err := manager.service.GetProjects()
 	if err != nil {
 		return nil, err
 	}
 
 	filters := filtering.New()
-	if !config.IncludeForks {
-		filters.Add(filtering.Create(models.ForksFilter, config))
+	if !manager.config.IncludeForks {
+		filters.Add(filtering.Create(models.ForksFilter, manager.config))
 	}
-	filters.Add(filtering.Create(models.MaxFilter, config))
+	filters.Add(filtering.Create(models.MaxFilter, manager.config))
 
-	sorter := sorters.Create(models.SortFromConfig[config.SortMode])
+	sorter := sorters.Create(models.SortFromConfig[manager.config.SortMode])
 
 	return filters.Filter(sorter.Sort(projects)), nil
 }

@@ -12,18 +12,17 @@
             }
 
             .projects {
-                padding: 48px 64px 0 64px;
+                padding: 48px 8vh 0 8vh;
                 display: grid;
                 grid-column-gap: 75px;
                 grid-row-gap: 50px;
-                grid-template-columns: repeat( auto-fit, minmax(30%, 1fr) );
+                grid-template-columns: repeat( auto-fill, minmax(25em, 1fr) );
              }
 
             .project {
-                display:none;
                 position: relative;
                 outline: 5px solid #34515e;
-                height: 14em;
+                height: 16em;
                 box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 8px 30px 12px rgba(0, 0, 0, 0.30);
             }
 
@@ -137,6 +136,7 @@
 
     <script>
         $(".project").each(function (index){
+            $(this).hide();
             $(this).fadeIn(800+index*150);
         })
     </script>

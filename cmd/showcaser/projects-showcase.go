@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"time"
 
 	"gitlab.com/rosenpin/git-project-showcaser/api/manager"
 	"gitlab.com/rosenpin/git-project-showcaser/api/services"
@@ -33,13 +34,32 @@ func main() {
 	manager := manager.New(config).
 		From(platforms[config.GitPlatform](config))
 
-	projects, err := manager.Fetch(config)
+	projects, err := manager.Fetch()
 	if err != nil {
 		panic(err)
 	}
 
 	server := server.New(projects)
-	server.Start(config, err)
+	go server.Start(config, err)
+
+	ticker := time.NewTicker(config.ReloadInterval)
+	for {
+		select {
+		case <-ticker.C:
+			reload(server, manager)
+		}
+	}
+}
+
+func reload(server *server.Server, manager *manager.Manager) {
+	projects, err := manager.Fetch()
+	if err != nil {
+		fmt.Println("Error reloading projects: ", err)
+	}
+
+	fmt.Println("Reloaded projects")
+
+	server.SetProjects(projects)
 }
 
 func loadConfig(configPath string) *models.Config {
