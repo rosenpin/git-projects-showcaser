@@ -23,6 +23,10 @@ func (max *MaxCount) Filter(projects models.Projects) models.Projects {
 		return projects
 	}
 
+	if max.maxProjects > uint(len(projects)) {
+		return projects
+	}
+
 	return projects[:max.maxProjects]
 }
 
