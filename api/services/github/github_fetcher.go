@@ -25,7 +25,7 @@ func NewFetcher(config *models.Config, fetcher *utils.HTTPJsonFetcher) *Fetcher 
 }
 
 // FetchProjects is used to fetch projects of a user by his username
-func (github *Fetcher) FetchProjects() ([]*models.Project, error) {
+func (github *Fetcher) FetchProjects() (models.Projects, error) {
 	apiURL := fmt.Sprintf(githubAPIUrl, github.config.Username, github.config.AuthCode)
 	fmt.Println("querying: ", apiURL)
 	result, err := github.FetchJSON(apiURL)

@@ -1,31 +1,17 @@
 package manager
 
 import (
+	filtering "gitlab.com/rosenpin/git-project-showcaser/api/filters"
 	"gitlab.com/rosenpin/git-project-showcaser/api/services"
 	"gitlab.com/rosenpin/git-project-showcaser/models"
 )
 
-type Filters struct {
-	sortMode    models.SortMode
-	maxProjects int
-	withForks   bool
-}
-
 type Manager struct {
-	service  services.Service
-	filters  Filters
-	username string
+	service services.Service
 }
 
-func New() *Manager {
-	return &Manager{filters: Filters{}}
-}
-
-func (manager *Manager) clear() {
-	manager.filters.sortMode = models.Stars
-	manager.filters.maxProjects = 10
-	manager.filters.withForks = false
-	manager.username = ""
+func New(config *models.Config) *Manager {
+	return &Manager{}
 }
 
 func (manager *Manager) From(service services.Service) *Manager {
@@ -33,33 +19,17 @@ func (manager *Manager) From(service services.Service) *Manager {
 	return manager
 }
 
-func (manager *Manager) UsingSortMode(sortmode models.SortMode) *Manager {
-	manager.filters.sortMode = sortmode
-	return manager
-}
-
-func (manager *Manager) WithNoMoreThan(maxProjects int) *Manager {
-	manager.filters.maxProjects = maxProjects
-	return manager
-}
-
-func (manager *Manager) IncludingForks() *Manager {
-	manager.filters.withForks = true
-	return manager
-}
-
-func (manager *Manager) ForUser(username string) *Manager {
-	manager.username = username
-	return manager
-}
-
-func (manager *Manager) Fetch() ([]*models.Project, error) {
-	defer manager.clear()
+func (manager *Manager) Fetch(config *models.Config) (models.Projects, error) {
 	projects, err := manager.service.GetProjects()
 	if err != nil {
 		return nil, err
 	}
-	//TODO filter and sort projects
 
-	return projects, nil
+	filters := filtering.New()
+	if !config.IncludeForks {
+		filters.Add(filtering.Create(models.ForksFilter, config))
+	}
+	filters.Add(filtering.Create(models.MaxFilter, config))
+
+	return filters.Filter(projects), nil
 }

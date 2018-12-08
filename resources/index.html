@@ -3,25 +3,108 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>{{.Title}}</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	</head>
 	<body>
+        <div class="header_wrapper">
+        <h1 class="header">
+            {{ .Title }}'s projects
+        </h1>
+        </div>
         <div class="projects">
 		{{range .Projects}}
+        <a href="{{ .Link }}">
             <div class="project" >
                 <h2 class="name">{{ .Name }}</h2>
                 <p class="description">{{ .Description }}</p>
+                <div class="icons_wrapper">
+                    <p>{{ .Forks }}</p>
+                    <img class="icon" src="/static/fork.png">
+                    <div style="width: 6px"></div>
+                    <p>{{ .Stars }}</p>
+                    <img class="icon" src="/static/star.png">
+                </div>
             </div>
+        </a>
         {{end}}
         </div>
 
         <style>
-            .projects{
-                column-count:3;
-                column-width: 25%
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .projects {
+                padding: 48px 64px 0 64px;
+                display: grid;
+                grid-column-gap: 75px;
+                grid-row-gap: 50px;
+                grid-template-columns: repeat( auto-fit, minmax(24em, 1fr) );
              }
 
-            .project{
-                background-image: url("/static/default_preview.gif")
+            .project {
+                position: relative;
+                outline: 5px solid #34515e;
+                height: 188px;
+                box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 8px 30px 12px rgba(0, 0, 0, 0.30);
+            }
+
+            .project h2 {
+                text-align: center;
+            }
+
+            .name {
+                background-color: #34515e;
+                color: white;
+                padding: 12px;
+            }
+
+            .description {
+                vertical-align:text-top;
+                padding-right: 32px;
+                padding-left: 8px;
+                margin-block-start:0;
+                margin-block-end:0;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            .header {
+                text-align:center;
+                margin-block: 0;
+            }
+
+            .header_wrapper{
+                padding: 16px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+
+            p, h1, h2 {
+                font-family: 'Open Sans', sans-serif;
+            }
+
+            .icon {
+                width:24px;
+                height:24px;
+                display:inline-block
+            }
+
+            .icons_wrapper {
+                right:0;
+                bottom:0;
+                position:absolute;
+                display: -webkit-flex; 
+                -webkit-align-items: center; 
+                display: flex;
+            }
+
+            .icons_wrapper p {
+                margin-block-start:0;
+                margin-block-end:0;
             }
         </style>
 	</body>

@@ -7,4 +7,7 @@ type Config struct {
 	Username           string  `json:"Username"`
 	AuthCode           string  `json:"AuthCode,omitempty"`
 	HTTPRequestTimeout int     `json:"HTTPRequestTimeout"`
+	MaxProjects        uint    `json:"MaxProjects"`
+	IncludeForks       bool    `json:"IncludeForks"`
+	GitPlatform        string  `json:"GitPlatform"`
 }

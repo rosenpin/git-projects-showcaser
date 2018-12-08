@@ -3,8 +3,10 @@ package server
 import (
 	"fmt"
 	"html/template"
+	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"path"
 
 	"gitlab.com/rosenpin/git-project-showcaser/models"
@@ -12,16 +14,16 @@ import (
 
 // Server is the object responsible of the HTTP server
 type Server struct {
-	projects []*models.Project
+	projects models.Projects
 }
 
 // New creates a new server object
-func New(projects []*models.Project) *Server {
+func New(projects models.Projects) *Server {
 	return &Server{projects}
 }
 
 // SetProjects sets the projects that the server will return, this is used to update the server without having to restart it
-func (server *Server) SetProjects(projects []*models.Project) {
+func (server *Server) SetProjects(projects models.Projects) {
 	server.projects = projects
 }
 
@@ -47,7 +49,7 @@ func (server *Server) Start(config *models.Config, err error) {
 
 		page := struct {
 			Title    string
-			Projects []*models.Project
+			Projects models.Projects
 		}{config.Username, server.projects}
 
 		err = template.Execute(w, page)
@@ -59,13 +61,14 @@ func (server *Server) Start(config *models.Config, err error) {
 
 	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Requested ", r.RequestURI)
-		content, err := ioutil.ReadFile(path.Join(config.ResourcesPath, r.RequestURI))
+		file, err := os.Open(path.Join(config.ResourcesPath, r.RequestURI))
 		if err != nil {
 			fmt.Fprintf(w, fmt.Sprint("error: ", err))
 			return
 		}
+		defer file.Close()
 
-		fmt.Fprintf(w, string(content))
+		io.Copy(w, file)
 	})
 	http.ListenAndServe(fmt.Sprintf(":%d", uint(config.Port)), nil)
 }

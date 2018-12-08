@@ -6,5 +6,5 @@ import (
 
 // ProjectsParser is the interface used to parse projects data from raw json data
 type ProjectsParser interface {
-	Parse(interface{}) ([]*models.Project, error)
+	Parse(interface{}) (models.Projects, error)
 }

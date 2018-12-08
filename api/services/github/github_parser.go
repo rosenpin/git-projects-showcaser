@@ -21,13 +21,13 @@ func newGithubParser() *githubParser {
 	return &githubParser{}
 }
 
-func (github *githubParser) Parse(raw interface{}) ([]*models.Project, error) {
+func (github *githubParser) Parse(raw interface{}) (models.Projects, error) {
 	rawProjects, ok := raw.([]interface{})
 	if !ok {
 		return nil, errInvalidMessageFormat
 	}
 
-	var projects []*models.Project
+	var projects models.Projects
 
 	for _, rawProject := range rawProjects {
 		mappedProject := rawProject.(map[string]interface{})

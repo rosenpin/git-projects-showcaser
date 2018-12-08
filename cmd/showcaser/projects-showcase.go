@@ -32,31 +32,18 @@ const (
 
 func main() {
 	// Parse flags
-	var gitPlatform, sortMode, configPath string
-	var maxProjects int
-	var includeForks bool
+	var configPath string
 
-	flag.StringVar(&gitPlatform, "git", "github", "git platform to use")
-	flag.StringVar(&sortMode, "sort", "stars", "projects sort mode")
 	flag.StringVar(&configPath, "c", "", "path to the configuration file")
-	flag.IntVar(&maxProjects, "max", 10, "max number of projects to fetch")
-	flag.BoolVar(&includeForks, "forks", false, "include forks")
 	flag.Parse()
 
 	// Load config
 	config := loadConfig(configPath)
 
-	manager := manager.New().
-		From(platforms[gitPlatform](config)).
-		UsingSortMode(sortModes[sortMode]).
-		WithNoMoreThan(maxProjects).
-		ForUser(config.Username)
+	manager := manager.New(config).
+		From(platforms[config.GitPlatform](config))
 
-	if includeForks {
-		manager = manager.IncludingForks()
-	}
-
-	projects, err := manager.Fetch()
+	projects, err := manager.Fetch(config)
 	if err != nil {
 		panic(err)
 	}

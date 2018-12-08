@@ -7,7 +7,7 @@ import (
 // Service represents a git service that projects can be fetched from
 type Service interface {
 	// GetProjects returns the projects from the appropriate service
-	GetProjects() ([]*models.Project, error)
+	GetProjects() (models.Projects, error)
 }
 
 // ServiceCreator is the function used to create services (services constructors)

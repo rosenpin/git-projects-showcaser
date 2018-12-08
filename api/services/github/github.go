@@ -19,6 +19,6 @@ func NewGithub(config *models.Config) services.Service {
 }
 
 // GetProjects gets the projects from Github and returns it
-func (github *Github) GetProjects() ([]*models.Project, error) {
+func (github *Github) GetProjects() (models.Projects, error) {
 	return github.FetchProjects()
 }
