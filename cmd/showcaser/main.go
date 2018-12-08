@@ -47,7 +47,7 @@ func main() {
 	config := loadConfig(configPath)
 
 	manager := manager.New().
-		From(platforms[gitPlatform](defaultTimeout)).
+		From(platforms[gitPlatform](config)).
 		UsingSortMode(sortModes[sortMode]).
 		WithNoMoreThan(maxProjects).
 		ForUser(config.Username)
@@ -57,7 +57,12 @@ func main() {
 	}
 
 	projects, err := manager.Fetch()
-	server.StartServer(config, projects, err)
+	if err != nil {
+		panic(err)
+	}
+
+	server := server.New(projects)
+	server.Start(config, err)
 }
 
 func loadConfig(configPath string) *models.Config {

@@ -15,6 +15,11 @@ type Server struct {
 	projects []*models.Project
 }
 
+// New creates a new server object
+func New(projects []*models.Project) *Server {
+	return &Server{projects}
+}
+
 // SetProjects sets the projects that the server will return, this is used to update the server without having to restart it
 func (server *Server) SetProjects(projects []*models.Project) {
 	server.projects = projects

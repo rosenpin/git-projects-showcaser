@@ -10,14 +10,15 @@ import (
 
 // Github is a git service that projects can be fetched from
 type Github struct {
-	*GithubFetcher
+	*Fetcher
 }
 
 // NewGithub creates a new Github object and uses the timeout as the request timeout for API requests
-func NewGithub(timeout time.Duration) services.Service {
-	return &Github{NewGithubFetcher(utils.NewHTTPJsonFetcher(timeout))}
+func NewGithub(config *models.Config) services.Service {
+	return &Github{NewFetcher(config, utils.NewHTTPJsonFetcher(time.Duration(config.HTTPRequestTimeout)*time.Second))}
 }
 
-func (github *Github) GetProjectsFor(username string) ([]*models.Project, error) {
-	return github.FetchProjects(username)
+// GetProjects gets the projects from Github and returns it
+func (github *Github) GetProjects() ([]*models.Project, error) {
+	return github.FetchProjects()
 }

@@ -12,20 +12,21 @@ const (
 	githubAPIUrl = "https://api.github.com/users/%v/repos?access_token=%v"
 )
 
-// GithubFetcher fetches projects from Github
-type GithubFetcher struct {
+// Fetcher fetches projects from Github
+type Fetcher struct {
 	*utils.HTTPJsonFetcher
 	parsers.ProjectsParser
+	config *models.Config
 }
 
-// NewGithubFetcher creates a new github fetcher object used to fetch users projects
-func NewGithubFetcher(fetcher *utils.HTTPJsonFetcher) *GithubFetcher {
-	return &GithubFetcher{fetcher, newGithubParser()}
+// NewFetcher creates a new github fetcher object used to fetch users projects
+func NewFetcher(config *models.Config, fetcher *utils.HTTPJsonFetcher) *Fetcher {
+	return &Fetcher{fetcher, newGithubParser(), config}
 }
 
 // FetchProjects is used to fetch projects of a user by his username
-func (github *GithubFetcher) FetchProjects(username string) ([]*models.Project, error) {
-	apiURL := fmt.Sprintf(githubAPIUrl, username, "e2e933cd8f9945e19c9ad2c8c6f02782ae70f8e3")
+func (github *Fetcher) FetchProjects() ([]*models.Project, error) {
+	apiURL := fmt.Sprintf(githubAPIUrl, github.config.Username, github.config.AuthCode)
 	fmt.Println("querying: ", apiURL)
 	result, err := github.FetchJSON(apiURL)
 	if err != nil {

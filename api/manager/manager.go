@@ -55,7 +55,7 @@ func (manager *Manager) ForUser(username string) *Manager {
 
 func (manager *Manager) Fetch() ([]*models.Project, error) {
 	defer manager.clear()
-	projects, err := manager.service.GetProjectsFor(manager.username)
+	projects, err := manager.service.GetProjects()
 	if err != nil {
 		return nil, err
 	}
