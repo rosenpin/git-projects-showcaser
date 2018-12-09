@@ -3,10 +3,8 @@ package server
 import (
 	"fmt"
 	"html/template"
-	"io"
 	"io/ioutil"
 	"net/http"
-	"os"
 	"path"
 
 	"gitlab.com/rosenpin/git-project-showcaser/models"
@@ -61,17 +59,8 @@ func (server *Server) Start(config *models.Config, err error) {
 		}
 	})
 
-	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Requested ", r.RequestURI)
-		file, err := os.Open(path.Join(config.ResourcesPath, r.RequestURI))
-		if err != nil {
-			fmt.Fprintf(w, fmt.Sprint("error: ", err))
-			return
-		}
-		defer file.Close()
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(path.Join(config.ResourcesPath, "static")))))
 
-		io.Copy(w, file)
-	})
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", uint(config.Port)), nil); err != nil {
 		panic(err)
 	}

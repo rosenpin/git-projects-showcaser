@@ -5,127 +5,10 @@
 		<title>{{.Title}}</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
-
-            .projects {
-                padding: 48px 8vh 0 8vh;
-                display: grid;
-                grid-column-gap: 75px;
-                grid-row-gap: 50px;
-                grid-template-columns: repeat( auto-fill, minmax(25em, 1fr) );
-             }
-
-            .project {
-                display: none;
-                position: relative;
-                height: 20vh;
-                border-radius: 8px 8px 8px 8px;
-                max-width: 100%;
-                box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 8px 30px 12px rgba(0, 0, 0, 0.30);
-            }
-
-            .project h2 {
-                text-align: center;
-            }
-
-            .name {
-                background-color: #34515e;
-                color: white;
-                padding: 20px;
-                font-size: 2vh;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                border-radius: 8px 8px 0 0
-            }
-
-            .description {
-                vertical-align:text-top;
-                font-size: 1.8vh;
-                padding-right: 32px;
-                padding-left: 8px;
-                margin-block-start:0;
-                margin-block-end:0;
-                overflow: hidden;
-                display: -webkit-box;
-                -webkit-line-clamp: 4;
-                -webkit-box-orient: vertical;  
-            }
-
-            a {
-                color: inherit;
-                text-decoration: none;
-            }
-
-            .header {
-                width: 100vw;
-                text-align:center;
-                margin-block: 0;
-            }
-
-            .header_wrapper{
-                width: 100vw;
-                padding: 16px;
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            }
-
-            p, h1, h2 {
-                font-family: 'Open Sans', sans-serif;
-            }
-
-            .icon {
-                width:1.5vh;
-                height:1.5vh;
-                display:inline-block
-            }
-
-            .icons_wrapper {
-                right:0.2em;
-                bottom:0.2em;
-                position:absolute;
-                display: -webkit-flex; 
-                -webkit-align-items: center; 
-                display: flex;
-            }
-
-            .icons_wrapper p {
-                margin-block-start:0;
-                margin-block-end:0;
-                font-size: 1.5vh;
-            }
-
-            .lang {
-                margin-block-start:0;
-                margin-block-end:0;
-                left:0.2em;
-                bottom:0.2em;
-                font-size: 1.5vh;
-                position:absolute;
-            }
-
-            footer {
-                margin-top: 5vh;
-                bottom: 0;
-                left: 1em;
-                right: 1em;
-            }
-
-            footer p{
-                text-align:center;
-            }
-
-            .classic_a {
-                text-decoration: underline; 
-                color: blue;
-            }
-        </style>
-	</head>
-	<body>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/styles/style.css">
+        <link rel="stylesheet" type="text/css" href="/static/styles/animations.css">
+    </head>
+<body>
         <a href="{{ .ProfileURL }}">
             <div class="header_wrapper">
                 <h1 class="header">
@@ -133,10 +16,7 @@
                 </h1>
             </div>
         </a>
-        <noscript>
-            <h1 style="text-align: center">Javascript is required</h1>
-        </noscript>
-        <div class="projects">
+        <div class="projects in-down">
 		{{range .Projects}}
         <a href="{{ .Link }}">
             <div class="project" >
@@ -158,11 +38,5 @@
         <footer>
             <p><a class="classic_a" href="https://gitlab.com/rosenpin/git-project-showcaser">git project showcaser</a> created by <a href="https://gitlab.com/rosenpin" class="classic_a">@rosenpin</a></p>
         </footer>
-
-    <script>
-        $(".project").each(function (index){
-            $(this).fadeIn(800+index*150);
-        })
-    </script>
 	</body>
 </html>
