@@ -9,14 +9,14 @@ body {
     grid-column-gap: 75px;
     width: device-width;
     grid-row-gap: 50px;
-    grid-template-columns: repeat( auto-fill, minmax(300px, 1fr) );
+    grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
 }
 
 .project {
     position: relative;
     height: 280px;
     border-radius: 8px 8px 8px 8px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 4px 30px 6px rgba(0, 0, 0, 0.20);
+    box-shadow: 0 1px 30px 1px rgba(0, 0, 0, 0.2), 0 2px 30px 10px rgba(0, 0, 0, 0.2);
 }
 
 .project h2 {
@@ -24,8 +24,8 @@ body {
 }
 
 .name {
-    background-color: #34515e;
-    color: white;
+    box-shadow: 0 1px 6px #888888;
+    background-color: white;
     padding: 20px;
     font-size: 1.8em;
     overflow: hidden;
@@ -34,7 +34,7 @@ body {
     border-radius: 8px 8px 0 0
 }
 
-.description {
+.project_description {
     vertical-align: text-top;
     font-size: 1.4em;
     padding-right: 32px;
@@ -46,6 +46,7 @@ body {
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     max-height: 140px;
+    color: black;
 }
 
 a {
@@ -71,8 +72,16 @@ p, h1, h2 {
 }
 
 .icon {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1em;
+    padding-left: 3px;
+    height: 1em;
+    height: 100%;
+    vertical-align: bottom;
+}
+
+.icon_helper {
+    height: 100%;
+    vertical-align: bottom;
     display: inline-block
 }
 
@@ -116,4 +125,7 @@ footer p {
     color: blue;
 }
 
+.colorful_font {
+    color: #222222;
+}
 
