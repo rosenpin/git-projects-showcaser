@@ -1,8 +1,8 @@
-package main
+package showcase
 
 import (
-	"flag"
 	"fmt"
+	"net/http"
 	"os"
 	"time"
 
@@ -21,13 +21,17 @@ var (
 	}
 )
 
-func main() {
-	// Parse flags
-	var configPath string
+// ProjectsShowcase is the exported app that can be used to serve this app under an HTTP server
+type ProjectsShowcase struct {
+}
 
-	flag.StringVar(&configPath, "c", "", "path to the configuration file")
-	flag.Parse()
+// NewProjectShowcase creates a new projectsShowcase object
+func NewProjectShowcase() *ProjectsShowcase {
+	return &ProjectsShowcase{}
+}
 
+// CreateHandler creates the HTTP handler for this project
+func (projectShowcase *ProjectsShowcase) CreateHandler(configPath string) http.Handler {
 	// Load config
 	config := loadConfig(configPath)
 
@@ -39,16 +43,18 @@ func main() {
 		panic(err)
 	}
 
-	server := server.New(projects)
-	go server.Start(config, err)
-
+	server := server.New(projects, config)
 	ticker := time.NewTicker(config.ReloadInterval)
-	for {
-		select {
-		case <-ticker.C:
-			reload(server, manager)
+	go func() {
+		for {
+			select {
+			case <-ticker.C:
+				reload(server, manager)
+			}
 		}
-	}
+	}()
+
+	return server
 }
 
 func reload(server *server.Server, manager *manager.Manager) {
@@ -63,10 +69,6 @@ func reload(server *server.Server, manager *manager.Manager) {
 }
 
 func loadConfig(configPath string) *models.Config {
-	if configPath == "" {
-		panic("no configuration file specified")
-	}
-
 	configLoader := config.NewLoader(configPath)
 
 	config := &models.Config{}
@@ -82,10 +84,6 @@ func loadConfig(configPath string) *models.Config {
 }
 
 func validateConfig(config *models.Config) error {
-	if config.Port > 65535 || config.Port <= 0 {
-		return fmt.Errorf("invalid port number")
-	}
-
 	if config.Username == "" {
 		return fmt.Errorf("invalid username")
 	}
