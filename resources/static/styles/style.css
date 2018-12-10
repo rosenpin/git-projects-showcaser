@@ -1,22 +1,22 @@
 body {
-    margin: 0;
+    margin: auto;
     padding: 0;
 }
 
 .projects {
-    padding: 48px 8vh 0 8vh;
+    padding: 48px 8% 0 8%;
     display: grid;
     grid-column-gap: 75px;
+    width: device-width;
     grid-row-gap: 50px;
-    grid-template-columns: repeat( auto-fill, minmax(25em, 1fr) );
+    grid-template-columns: repeat( auto-fill, minmax(300px, 1fr) );
 }
 
 .project {
     position: relative;
-    height: 20vh;
+    height: 280px;
     border-radius: 8px 8px 8px 8px;
-    max-width: 100%;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 8px 30px 12px rgba(0, 0, 0, 0.30);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 4px 30px 6px rgba(0, 0, 0, 0.20);
 }
 
 .project h2 {
@@ -27,7 +27,7 @@ body {
     background-color: #34515e;
     color: white;
     padding: 20px;
-    font-size: 2vh;
+    font-size: 1.8em;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -36,7 +36,7 @@ body {
 
 .description {
     vertical-align: text-top;
-    font-size: 1.8vh;
+    font-size: 1.4em;
     padding-right: 32px;
     padding-left: 8px;
     margin-block-start: 0;
@@ -45,6 +45,7 @@ body {
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
+    max-height: 140px;
 }
 
 a {
@@ -53,13 +54,14 @@ a {
 }
 
 .header {
-    width: 100vw;
+    width: device-width;
     text-align: center;
     margin-block: 0;
 }
 
 .header_wrapper {
-    width: 100vw;
+    text-align: center;
+    width: device-width;
     padding: 16px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -69,8 +71,8 @@ p, h1, h2 {
 }
 
 .icon {
-    width: 1.5vh;
-    height: 1.5vh;
+    width: 1.5em;
+    height: 1.5em;
     display: inline-block
 }
 
@@ -86,7 +88,7 @@ p, h1, h2 {
 .icons_wrapper p {
     margin-block-start: 0;
     margin-block-end: 0;
-    font-size: 1.5vh;
+    font-size: 1.2em;
 }
 
 .lang {
@@ -94,12 +96,12 @@ p, h1, h2 {
     margin-block-end: 0;
     left: 0.2em;
     bottom: 0.2em;
-    font-size: 1.5vh;
+    font-size: 1.2em;
     position: absolute;
 }
 
 footer {
-    margin-top: 5vh;
+    margin-top: 5vmax;
     bottom: 0;
     left: 1em;
     right: 1em;
