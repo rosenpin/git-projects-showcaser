@@ -77,13 +77,12 @@ p, h1, h2 {
     padding-left: 3px;
     height: 1em;
     height: 100%;
-    vertical-align: bottom;
+    vertical-align: middle;
 }
 
 .icon_helper {
     height: 100%;
-    vertical-align: bottom;
-    display: inline-block
+    vertical-align: top;
 }
 
 .icons_wrapper {

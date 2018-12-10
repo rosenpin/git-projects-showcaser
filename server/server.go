@@ -61,7 +61,14 @@ func (server *Server) Start(config *models.Config, err error) {
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(path.Join(config.ResourcesPath, "static")))))
 
-	if err := http.ListenAndServe(fmt.Sprintf(":%d", uint(config.Port)), nil); err != nil {
-		panic(err)
+	go func() {
+		if err := http.ListenAndServe(fmt.Sprintf(":%d", uint(config.Port)), nil); err != nil {
+			panic(err)
+		}
+	}()
+
+	err = http.ListenAndServeTLS(":443", path.Join(config.SSLCertificatePath, "fullchain.pem"), path.Join(config.SSLCertificatePath, "privkey.pem"), nil)
+	if err != nil {
+		fmt.Println(err)
 	}
 }

@@ -15,4 +15,5 @@ type Config struct {
 	SortMode           string        `yaml:"SortMode"`
 	ProfileURL         string        `yaml:"ProfileURL"`
 	ReloadInterval     time.Duration `yaml:"ReloadInterval"`
+	SSLCertificatePath string        `yaml:"SSLCertificateLocation"`
 }
