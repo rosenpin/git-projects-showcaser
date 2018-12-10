@@ -37,6 +37,7 @@ body {
 .project_description {
     vertical-align: text-top;
     font-size: 1.4em;
+    font-family: 'Roboto', sans-serif;
     padding-right: 32px;
     padding-left: 8px;
     margin-block-start: 0;
