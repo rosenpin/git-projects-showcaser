@@ -9,9 +9,9 @@ import (
 	"gitlab.com/rosenpin/git-project-showcaser/api/manager"
 	"gitlab.com/rosenpin/git-project-showcaser/api/services"
 	"gitlab.com/rosenpin/git-project-showcaser/api/services/github"
+	"gitlab.com/rosenpin/git-project-showcaser/app"
 	"gitlab.com/rosenpin/git-project-showcaser/config"
 	"gitlab.com/rosenpin/git-project-showcaser/models"
-	"gitlab.com/rosenpin/git-project-showcaser/server"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -43,7 +43,7 @@ func (projectShowcase *ProjectsShowcase) CreateHandler(configPath string) http.H
 		panic(err)
 	}
 
-	server := server.New(projects, config)
+	server := app.New(projects, config)
 	ticker := time.NewTicker(config.ReloadInterval)
 	go func() {
 		for {
@@ -57,7 +57,7 @@ func (projectShowcase *ProjectsShowcase) CreateHandler(configPath string) http.H
 	return server
 }
 
-func reload(server *server.Server, manager *manager.Manager) {
+func reload(server *app.Server, manager *manager.Manager) {
 	projects, err := manager.Fetch()
 	if err != nil {
 		fmt.Println("Error reloading projects: ", err)
