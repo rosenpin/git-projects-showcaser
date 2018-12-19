@@ -1,6 +1,10 @@
 package filters
 
-import "gitlab.com/rosenpin/git-project-showcaser/models"
+import (
+	"fmt"
+
+	"gitlab.com/rosenpin/git-project-showcaser/models"
+)
 
 // Forks is a filter used to filter projects that are forks
 type Forks struct {
@@ -9,6 +13,7 @@ type Forks struct {
 
 // NewForksFilter creates a new Forks filter object
 func NewForksFilter(config *models.Config) Filter {
+	fmt.Println()
 	return &Forks{config.MaxProjects}
 }
 
