@@ -35,8 +35,7 @@ func (projectShowcase *ProjectsShowcase) CreateHandler(configPath string) http.H
 	// Load config
 	config := loadConfig(configPath)
 
-	manager := manager.New(config).
-		From(platforms[config.GitPlatform](config))
+	manager := manager.New(config).From(platforms[config.GitPlatform](config))
 
 	projects, err := manager.Fetch()
 	if err != nil {
@@ -45,18 +44,23 @@ func (projectShowcase *ProjectsShowcase) CreateHandler(configPath string) http.H
 
 	server := app.New(projects, config)
 	ticker := time.NewTicker(config.ReloadInterval)
-	go func() {
-		for {
-			select {
-			case <-ticker.C:
-				reload(server, manager)
-			}
-		}
-	}()
+
+	go startReloading(ticker, server, manager)
 
 	return server
 }
 
+// startReloading reloads the projects in a set interval using the ticker
+func startReloading(ticker *time.Ticker, server *app.Server, manager *manager.Manager) {
+	for {
+		select {
+		case <-ticker.C:
+			reload(server, manager)
+		}
+	}
+}
+
+// reload reloads the projects
 func reload(server *app.Server, manager *manager.Manager) {
 	projects, err := manager.Fetch()
 	if err != nil {
