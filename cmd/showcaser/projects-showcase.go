@@ -6,11 +6,11 @@ import (
 	"os"
 	"time"
 
+	config "gitlab.com/rosenpin/config-manager"
 	"gitlab.com/rosenpin/git-project-showcaser/api/manager"
 	"gitlab.com/rosenpin/git-project-showcaser/api/services"
 	"gitlab.com/rosenpin/git-project-showcaser/api/services/github"
 	"gitlab.com/rosenpin/git-project-showcaser/app"
-	"gitlab.com/rosenpin/git-project-showcaser/config"
 	"gitlab.com/rosenpin/git-project-showcaser/models"
 	yaml "gopkg.in/yaml.v2"
 )
