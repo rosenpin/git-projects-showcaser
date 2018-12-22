@@ -7,7 +7,6 @@ Showcase your projects from Github/Gitlab in your own website automatically
 The configuration file should be in this format (yaml):
 ```
 ResourcesPath: resources # Path to the resources directory, should include the index.html file to work with
-Port: 8080 # Port to listen on
 Username: rosenpin # The username for the service
 AuthCode: YOUR_AUTH_CODE # Optional auth code for services like github that limit request number
 HTTPRequestTimeout: 10s # API request time out
@@ -21,5 +20,6 @@ ReloadInterval: 12h # At what interval to fetch from git
 
 ## Running it
 
-To run the program:
-``` ./showcase-projects -c $CONFIG_PATH```
+The ```CreateHandler``` returns an HTTP.HandlerFunc that you can use on your sever
+
+For a more detailed example, feel free to view my own website source code [here](https://gitlab.com/rosenpin/rosenpin.io)
