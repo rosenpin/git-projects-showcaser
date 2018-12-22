@@ -20,6 +20,6 @@ ReloadInterval: 12h # At what interval to fetch from git
 
 ## Running it
 
-The ```CreateHandler``` returns an HTTP.HandlerFunc that you can use on your sever
+The exported ```CreateHandler``` function returns an HTTP.HandlerFunc that you can use on your sever
 
 For a more detailed example, feel free to view my own website source code [here](https://gitlab.com/rosenpin/rosenpin.io)
